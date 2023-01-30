@@ -1,29 +1,19 @@
-import io
-import os 
-import tensorflow as tf
 import streamlit as st
-import leafmap.foliumap as leafmap
-import utils
 
 # Sidebar __________________________________________________________________________
-st.set_page_config(page_title="Foodix-Coordinates", page_icon=":corn:", layout="wide")
-markdown = """
-GitHub Repository: <https://github.com/MRL1998/MCK_Silos.git>
-"""
-st.sidebar.success("👆👆👆 Select a page above:")
-st.sidebar.title("💻 Our work: ")
-st.sidebar.info(markdown)
+st.set_page_config(page_title="Recommendation", page_icon=":roller_coaster:", layout="wide")
 
+st.sidebar.title("💻 Our work: ")
+st.sidebar.info("[GitHub Repository](https://github.com/MRL1998/MCK_Silos.git)")
 st.sidebar.title("📬 Contact:")
-markdown = """
-zidi.yang@hec.edu 
-milos.basic@hec.edu
-antoine.mellerio@hec.edu
-camille.epitalon@hec.edu
-augustin.de-la-brosse@hec.edu
-michael.liersch@hec.edu
-"""
-st.sidebar.info(markdown)
+st.sidebar.info("""
+sai-abhishikth.ayyadevara@hec.edu  
+antoine.mellerio@hec.edu  
+evangelos.viskadouros@hec.edu  
+antoine.razeghi@hec.edu  
+zhexuanqiu@gmail.com  
+jiahe.zhu@hec.edu  
+""")
 
 # Main Body __________________________________________________________________________
 st.title("Check your Coordinates 🌍")

@@ -12,7 +12,6 @@ markdown = """
 GitHub Repository: <https://github.com/AntoineMellerio/regression-waiting-line-ElevenStrategy>
 """
 
-st.sidebar.success("👆👆👆 Select a page above:")
 st.sidebar.title("💻 Our work: ")
 st.sidebar.info(markdown)
 
@@ -67,8 +66,8 @@ with st.container():
             • 1 human being dying from famine every 4 seconds...
     ''')
         st.write("[Learn More >](https://www.fao.org/newsroom/detail/un-report-global-hunger-SOFI-2022-FAO/en)")
-    with text_column:
-        st_lottie(lottie_coding, height=500, key="coding") 
+    #with text_column:
+    #    st_lottie(lottie_coding, height=500, key="coding") 
     
     st.markdown('''<h3 style='text-align: center; 
                 color: midnightblue;
