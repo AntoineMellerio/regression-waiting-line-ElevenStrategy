@@ -11,7 +11,6 @@ markdown = """
 GitHub Repository: <https://github.com/AntoineMellerio/regression-waiting-line-ElevenStrategy>
 """
 
-st.sidebar.success("👆👆👆 Select a page above:")
 st.sidebar.title("💻 Our work: ")
 st.sidebar.info(markdown)
 
@@ -47,6 +46,7 @@ with st.container():
 
     image_column, text_column = st.columns([3, 1])
     with image_column:
+
         st.header("A Data Driven Approach to Optimize Customer Wait Times")
         st.subheader('''
         "With great power comes great responsibility" - With more footfalls, come longer queues
