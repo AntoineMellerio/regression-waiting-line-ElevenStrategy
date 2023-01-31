@@ -1,8 +1,7 @@
 import requests
 from PIL import Image
-
 import streamlit as st
-from streamlit_lottie import st_lottie
+
 
 
 # Sidebar __________________________________________________________________________
@@ -27,13 +26,6 @@ evangelos.viskadouros@hec.edu
 """
 st.sidebar.info(markdown)
 
-def load_lottieurl(url):
-    r = requests.get(url)
-    if r.status_code != 200:
-        return None
-    return r.json()
-
-
 # Use local CSS
 def local_css(file_name):
     with open(file_name) as f:
@@ -55,86 +47,62 @@ with st.container():
 
     image_column, text_column = st.columns([3, 1])
     with image_column:
-        st.header("Our Mission : Diminish global famine crisis making cereals available for all families and communities across the globe")
-        st.subheader(
-            '''
-            “The world is moving backwards in efforts to eliminate hunger and malnutrition.” (FAO)
-    ''')
-        st.write(
-            '''
-            • 828 million people were affected by hunger in 2021  
-            • The number of hungry people increased by 150 million in 2019​  
-            • 1 human being dying from famine every 4 seconds...
-    ''')
-        st.write("[Learn More >](https://www.fao.org/newsroom/detail/un-report-global-hunger-SOFI-2022-FAO/en)")
-    with text_column:
-        st_lottie(lottie_coding, height=500, key="coding") 
-    
+        st.header("A Data Driven Approach to Optimize Customer Wait Times")
+        st.subheader('''
+        "With great power comes great responsibility" - With more footfalls, come longer queues
+        ''')
     st.markdown('''<h3 style='text-align: center; 
-                color: midnightblue;
-                '>We want to help solve this problem by providing sales and strategic managers with the information they need to place the silos in the place with the most impact.</h3>''', 
+                color: lightgreen;
+                '>Our goal is to harness the power of data science by accurately forecasting wait times across the park to enable you to enhance customer experience</h3>''', 
         unsafe_allow_html=True)
 
 # ---- Eleven description ----
 with st.container():
     st.write("---")
-    st.header("Who we are:")
+    st.header("About Us:")
     left_column, right_column = st.columns(2)
     with left_column:
-        st.subheader("We are 6 McKinsey consultants with 20+ years of experiences")
+        st.subheader("We are 6 Eleven consultants with a strong background in data science")
     with right_column:
         st.write('')
     left_column_2, right_column_2 = st.columns(2)
     with left_column_2:
         st.write( """
-            - Our experience includes, among other things, agriculture, infrastructures, sustainability and data science
-            - +700 projects carried out throughout our career
+            - Holders of Masters in Data Science for Business from École Polytechnique and HEC Paris
+            - Diverse technical and business expertise
+            - 60+ data science projects amongst us
             """
         )
         st.write("##")
         st.write(
             """
-            About McKinsey:
-            - Our expertise includes : Strategy, Transformation, Private Equity
-            - +18000 consultants worldwide 
+            About Eleven:
+            First European strategy consulting firm specifically founded to accompany its clients in their transformation to adapt to the new paradigm of the digital and AI (artificial intelligence) economy thanks to a novel combination of strategic analysis, an entrepreneurial approach and a strong proximity to the digital and data ecosystem.
       
-            If this sounds interesting to you, consider hiring us for your project.
+            If this interests to you, consider hiring us for your project.
             """
         )
-        st.write("[Our Website >](https://www.mckinsey.com/)")
-#    with right_column_2:
-#        st.image(img_mckinsey)
+        st.write("[Our Website >](https://eleven-strategy.com/)")
+    image = Image.open('Eleven.jpeg')
+    with right_column_2:
+        st.image(image, caption = 'Eleven Strategy')
     
 
-# ---- PROJECTS ----
+# ---- Project Overview ----
 with st.container():
     st.write("---")
-    st.header("Little zoom on one of our project: classification and segmentation of silos on satellite images")
-    st.write("For those who wish to have a quick overview of the technical part of the project.")
+    st.header("A brief overview of our project")
+    st.write("To help you get started")
     st.write("##")
 
 with st.container():
-    text_column_1, image_column_1 = st.columns([3, 2])
-    with text_column_1:
-        st.subheader("Step 1 : Classification of Silos from Satellite images")
-        st.write(
+    st.subheader("Forecasting Wait Times To Enhance Customer Experience")
+    st.write(
             """
-                We use a deep learning algorithm to classify the image. More precisely, it is a CNN (Convolutionnal Neural Network) with a RMSProp optimizer and a Binary Cross-Entropy loss.
-                Each image goes through 2 steps : preprocessing & prediction.
-                Finaly, the classification is based on whether or not the model can find silos in the image, representing a certain zone of 128x128m.
-            """
-        )
-#    with image_column_1:
-#        st.image(img_silos_satelite)
-    
-    text_column_2, image_column_2 = st.columns([3, 2])
-    with text_column_2:
-        st.subheader("Step 2 : Image Segmentation and exact localization of silos")
-        st.write(
-            """
-                Then, we segmentate our images to pinpoint the exact localization of the silos.
-                To achieve this goal, we use a UNet algorithm with an Adam optimizer and a root mean square error loss.
+                - An extensive database ranging from customer footfalls to weather patterns.
+                - Rigorous preprocessing to clean and identify key predictors
+                - Complex models to acheive high accuracy
+                - Analysis of predictions to identify impact on KPIs
+            For more details please navigate to the "Overview" page.
             """
         )
-#    with image_column_2:
-#        st.image(img_silos_segmentation)
