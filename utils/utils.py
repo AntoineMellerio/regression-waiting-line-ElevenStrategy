@@ -46,7 +46,7 @@ def attendance_figures(df, attraction_list, start_date, end_date, date_label, at
 
 def wait_time_figures(df, attraction_list, start_date, end_date, date_label, wait_time_label, attraction_label):
     '''
-    Return the heatmap for wait times per ride on a daily basis. 
+    Return the heatmap for average wait times per ride on a daily basis. 
     Inputs:
         df : pd.DataFrame() = table of the wait time per ride every 15 min and an assortment of other related features. 
         attraction_list : list(str) = list of the names of the attractions.
@@ -56,7 +56,7 @@ def wait_time_figures(df, attraction_list, start_date, end_date, date_label, wai
         attendance_label : str = label of the attendance column.
         attraction_label : str = label of the attraction column.
     Outputs:
-       fig: A detailed heatmap that shows the variation of wait times per day for selected rides in the given timeframe
+       fig: A detailed heatmap that shows the variation of average wait times per day for selected rides in the given timeframe
     '''
     to_plot = df.copy()
 
@@ -83,7 +83,7 @@ def wait_time_figures(df, attraction_list, start_date, end_date, date_label, wai
     for elem in namelist:
         df = df_dict[elem]
         rslt_df = df[[f"{date_label}", f"{wait_time_label}"]]
-        rslt_df = rslt_df.groupby([f"{date_label}"]).sum()
+        rslt_df = rslt_df.groupby([f"{date_label}"]).mean()
         list = rslt_df[f"{wait_time_label}"].tolist()
         complete_list.append(list)
     
@@ -95,7 +95,7 @@ def wait_time_figures(df, attraction_list, start_date, end_date, date_label, wai
         colorscale='Viridis'))
 
     fig.update_layout(
-        title='Cumulative Wait Times of Each Ride Per Day (in minutes)',
+        title='Average Wait Times of Each Ride Per Day (in minutes)',
         xaxis_nticks = len(rslt_df.index),
         width=800, height=400)
     
