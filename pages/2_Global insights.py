@@ -36,11 +36,20 @@ data_path = os.path.join(root_path, 'data')
 attendance_df = pd.read_csv(os.path.join(data_path, 'attendance.csv'))
 
 # Global analysis __________________________________________________________________________
-banner = Image.open(os.path.join(root_path,"images/banner_page1.jpg"))
+banner = Image.open(os.path.join(root_path,"images/banner_page3.jpg"))
 st.image(banner)
 
 st.title("Global insights")
 st.write("---")
+
+# Global KPIs __________________________________________________________________________
+st.subheader("KPIs")
+st.write("Average number of attraction done per client per day : 7")
+st.write("Average waiting time per client per attraction : 35 minutes")
+st.write("---")
+
+# Attendance insights __________________________________________________________________________
+st.subheader("Attendance")
 
 # Parameter selection __________________________________________________________________________
 # Select the date range
@@ -67,11 +76,7 @@ with st.container():
     with c1:
         park_list = st.multiselect('Park :roller_coaster:', attendance_df.FACILITY_NAME.unique())
 
-st.write("---")
-
-# Attendance insights __________________________________________________________________________
-st.subheader("Attendance")
-
+# Attendance metrics __________________________________________________________________________
 if len(attendance_df[(pd.to_datetime(attendance_df.USAGE_DATE)>pd.to_datetime(start_date))&\
     (pd.to_datetime(attendance_df.USAGE_DATE)<pd.to_datetime(end_date))])==0:
     st.write("No data on this period.")

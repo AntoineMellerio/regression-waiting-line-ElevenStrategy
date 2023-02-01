@@ -1,8 +1,8 @@
-import requests
 from PIL import Image
 import streamlit as st
-
-
+from PIL import Image
+from pathlib import Path
+import os
 
 # Sidebar __________________________________________________________________________
 st.set_page_config(page_title="Home Page", page_icon=":roller_coaster:", layout="wide") 
@@ -10,6 +10,13 @@ st.set_page_config(page_title="Home Page", page_icon=":roller_coaster:", layout=
 markdown = """
 GitHub Repository: <https://github.com/AntoineMellerio/regression-waiting-line-ElevenStrategy>
 """
+
+root_path = Path(os.getcwd())
+data_path = os.path.join(root_path, 'data')
+
+# Global analysis __________________________________________________________________________
+banner = Image.open(os.path.join(root_path,"images/banner_page2.jpeg"))
+st.image(banner)
 
 st.sidebar.title("💻 Our work: ")
 st.sidebar.info(markdown)
@@ -30,15 +37,6 @@ def local_css(file_name):
     with open(file_name) as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-
-# local_css("style/style.css")
-# ---- LOAD ASSETS ----
-#lottie_coding = load_lottieurl("https://assets9.lottiefiles.com/private_files/lf30_4lyswkde.json")
-#img_silos_satelite = Image.open("images/silos_satelite.png").resize((250, 250))
-#img_silos_segmentation = Image.open("images/silos_segmentation.png").resize((250, 250))
-#img_food = Image.open("images/danger.png")
-#img_food = img_food.resize((200, 200))
-#img_mckinsey = Image.open('images/McKinsey_Script_Mark_2019.svg.png')
 
 # ---- HEADER SECTION ----
 with st.container():
@@ -83,7 +81,7 @@ with st.container():
             """
         )
         st.write("[Our Website >](https://eleven-strategy.com/)")
-    image = Image.open('Eleven.jpeg')
+    image = Image.open('images/Eleven.jpeg')
     with right_column_2:
         st.image(image, caption = 'Eleven Strategy')
     
