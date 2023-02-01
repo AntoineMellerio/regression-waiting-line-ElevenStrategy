@@ -1,6 +1,7 @@
-import requests
 import streamlit as st
-#from PIL import Image
+import os
+from PIL import Image
+from pathlib import Path
 
 # Sidebar __________________________________________________________________________
 st.set_page_config(page_title="Next steps", page_icon=":roller_coaster:", layout="wide")  
@@ -17,17 +18,16 @@ zhexuanqiu@gmail.com
 jiahe.zhu@hec.edu  
 """)
 
-def load_lottieurl(url):
-    r = requests.get(url)
-    if r.status_code != 200:
-        return None
-    return r.json()
-
-
 # Use local CSS
 def local_css(file_name):
     with open(file_name) as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+root_path = Path(os.getcwd())
+data_path = os.path.join(root_path, 'data')
+
+banner = Image.open(os.path.join(root_path,"images/banner_page1.jpg"))
+st.image(banner)
 
 st.title("Next steps")
 
@@ -55,31 +55,4 @@ st.write("""
          By reducing the granularity to the hour and gathering live data on th park, we would be able to emit hour-to-hour predictions.  
          """
         )
-st.write("---")
-
-
-
-col1, arrow ,col2 = st.columns([4, 2, 4])
-
-#france_heatmap = Image.open("images/agriculture_france.png")
-#marked_map = Image.open("images/map_marked.png")
-
-with col1:
-     st.markdown("<h5 style='text-align: center; color: midnightblue;'>Multilayered agricultural data heatmaps </h5>", unsafe_allow_html=True)
-     #st.image(france_heatmap)
-with arrow:
-    st.write("")
-    st.write("")
-    st.write("")
-    st.write("")
-    st.write("")
-    st.write("")
-    st.write("")
-    st.write("")
-    st.write("")
-    # st.image(arrow_pic)
-with col2:
-    st.markdown("<h5 style='text-align: center; color: midnightblue;'>Marked Silos next to roads in 10km radius</h5>", unsafe_allow_html=True)
-    #st.image(marked_map)
-
 st.write("---")

@@ -1,18 +1,17 @@
 import streamlit as st
 import io
 from PIL import Image
-import datetime
 import os
 import plotly.graph_objects as go
 import pandas as pd
 from pathlib import Path
-from utils.utils import attendance_figures
+from utils.utils import wait_time_figures
 
 root_path = Path(os.getcwd())
 data_path = os.path.join(root_path, 'data')
 
 # Sidebar __________________________________________________________________________
-st.set_page_config(page_title="Past performances", page_icon=":roller_coaster:", layout="wide") 
+st.set_page_config(page_title="Detailed Insights", page_icon=":roller_coaster:", layout="wide") 
 
 st.sidebar.title("💻 Our work: ")
 st.sidebar.info("[GitHub Repository](https://github.com/MRL1998/MCK_Silos.git)")
@@ -33,16 +32,18 @@ def saveImage(byteImage):
     return imgFile
 
 # Load data
-attendance_df = pd.read_csv(os.path.join(data_path, 'attendance.csv'))
+wait_time_df = pd.read_csv(os.path.join(data_path, 'waiting_times.csv'))
 
 # Global analysis __________________________________________________________________________
-st.title("Global insights")
+banner = Image.open(os.path.join(root_path,"images/banner_page4.jpeg"))
+st.image(banner)
+st.title("Detailed insights")
 
 # Parameter selection __________________________________________________________________________
 # Select the date range
 with st.container(): 
-    min_date = pd.to_datetime(attendance_df.USAGE_DATE.min())
-    max_date = pd.to_datetime(attendance_df.USAGE_DATE.max())
+    min_date = pd.to_datetime(wait_time_df.WORK_DATE.min())
+    max_date = pd.to_datetime(wait_time_df.WORK_DATE.max())
 
     c1, c2, c3, c4 = st.columns(4)
     with c1:
@@ -57,40 +58,30 @@ with st.container():
     start_date = str(start_date.strftime("%Y-%m-%d"))
     end_date = str(end_date.strftime("%Y-%m-%d"))
 
-# Select the park
+# Select the attraction
 with st.container():
     c1, c2, c3, = st.columns(3)
     with c1:
-        park_list = st.multiselect('Parks :roller_coaster:', attendance_df.FACILITY_NAME.unique())
+        attraction_list = st.multiselect('Rides :roller_coaster:', wait_time_df.ENTITY_DESCRIPTION_SHORT.unique())
 
 
-# Attendance insights __________________________________________________________________________
-st.subheader("Attendance")
+# Wait Time insights __________________________________________________________________________
+st.subheader("Wait Times")
 
-if len(attendance_df[(pd.to_datetime(attendance_df.USAGE_DATE)>pd.to_datetime(start_date))&\
-    (pd.to_datetime(attendance_df.USAGE_DATE)<pd.to_datetime(end_date))])==0:
+if len(wait_time_df[(pd.to_datetime(wait_time_df.WORK_DATE)>pd.to_datetime(start_date))&\
+    (pd.to_datetime(wait_time_df.WORK_DATE)<pd.to_datetime(end_date))])==0:
     st.write("No data on this period.")
     
 else: # Display the metrics
-    if park_list:
-        fig, L = attendance_figures(attendance_df,\
-            park_list,
+    if attraction_list:
+        fig = wait_time_figures(wait_time_df,\
+            attraction_list,
             start_date,
             end_date,
-            date_label="USAGE_DATE",
-            attendance_label="attendance",
-            attraction_label="FACILITY_NAME")
-
-        with st.container():
-            c1, c2, c3, = st.columns(3)
-            with c1:
-                st.metric("Minimum daily attendance", value=L[0])
-            with c2:
-                st.metric("Average daily attendance", value=L[1])
-            with c3:
-                st.metric("Maximum daily attendance", value=L[2])
-
+            date_label="WORK_DATE",
+            wait_time_label="WAIT_TIME_MAX",
+            attraction_label="ENTITY_DESCRIPTION_SHORT")
         st.plotly_chart(fig)
     
     else:
-        st.write("Please select a park.")
+        st.write("Please select an attraction.")
