@@ -26,7 +26,7 @@ def local_css(file_name):
 root_path = Path(os.getcwd())
 data_path = os.path.join(root_path, 'data')
 
-banner = Image.open(os.path.join(root_path,"images/banner_page2.jpeg"))
+banner = Image.open(os.path.join(root_path,"images/banner_page1.jpg"))
 st.image(banner)
 
 st.title("Next steps")

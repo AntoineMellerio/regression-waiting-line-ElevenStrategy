@@ -35,6 +35,8 @@ def saveImage(byteImage):
 wait_time_df = pd.read_csv(os.path.join(data_path, 'waiting_times.csv'))
 
 # Global analysis __________________________________________________________________________
+banner = Image.open(os.path.join(root_path,"images/banner_page4.jpeg"))
+st.image(banner)
 st.title("Detailed insights")
 
 # Parameter selection __________________________________________________________________________
