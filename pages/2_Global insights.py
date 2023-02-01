@@ -8,12 +8,15 @@ import pandas as pd
 from pathlib import Path
 from utils.utils import attendance_figures
 
-root_path = Path(os.getcwd())
-data_path = os.path.join(root_path, 'data')
-
-# Sidebar __________________________________________________________________________
 st.set_page_config(page_title="Past performances", page_icon=":roller_coaster:", layout="wide") 
 
+def saveImage(byteImage):
+    bytesImg = io.BytesIO(byteImage)
+    imgFile = Image.open(bytesImg)   
+   
+    return imgFile
+
+# Sidebar __________________________________________________________________________
 st.sidebar.title("💻 Our work: ")
 st.sidebar.info("[GitHub Repository](https://github.com/MRL1998/MCK_Silos.git)")
 st.sidebar.title("📬 Contact:")
@@ -26,17 +29,18 @@ zhexuanqiu@gmail.com
 jiahe.zhu@hec.edu  
 """)
 
-def saveImage(byteImage):
-    bytesImg = io.BytesIO(byteImage)
-    imgFile = Image.open(bytesImg)   
-   
-    return imgFile
 
-# Load data
+# Load data __________________________________________________________________________
+root_path = Path(os.getcwd())
+data_path = os.path.join(root_path, 'data')
 attendance_df = pd.read_csv(os.path.join(data_path, 'attendance.csv'))
 
 # Global analysis __________________________________________________________________________
+banner = Image.open(os.path.join(root_path,"images/banner_page1.jpg"))
+st.image(banner)
+
 st.title("Global insights")
+st.write("---")
 
 # Parameter selection __________________________________________________________________________
 # Select the date range
@@ -61,8 +65,9 @@ with st.container():
 with st.container():
     c1, c2, c3, = st.columns(3)
     with c1:
-        park_list = st.multiselect('Parks :roller_coaster:', attendance_df.FACILITY_NAME.unique())
+        park_list = st.multiselect('Park :roller_coaster:', attendance_df.FACILITY_NAME.unique())
 
+st.write("---")
 
 # Attendance insights __________________________________________________________________________
 st.subheader("Attendance")
