@@ -21,3 +21,10 @@ If a conda environment has been created, run the two following commands instead 
 ## Web app
 We provide a dashboard showing the key take-outs of our analysis.  
 To generate it, please run `streamlit run Home.py`.
+  
+The app is composed of 5 pages :  
+1. Homepage : presentation of the project and the team.  
+2. Overview : global insights on the parks' performances (attendance and waiting times).  
+3. Deep-diving : per attraction figures and predictions on the waiting times, at both daily and hourly granularities.   
+4. Recommendations : spotting of the critical attractions and recommendations to reduce the waiting times.  
+5. Next steps : next steps to the predictive model and use-cases suggestions.  
