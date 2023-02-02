@@ -5,7 +5,7 @@ import os
 import plotly.graph_objects as go
 import pandas as pd
 from pathlib import Path
-from utils.utils import daily_wait_time_figures, hourly_wait_time_figures
+from utils.utils import daily_wait_time_figures, hourly_wait_time_figures, available_rides
 import altair as alt
 
 root_path = Path(os.getcwd())
@@ -115,7 +115,6 @@ else: # Display the metrics
 st.write("#")
 st.write("#")
 st.write("#")
-st.write("#")
 
 # ANALYSIS 2 - Avg Hourly Wait Times __________________________________________________________________________
 st.subheader("Historical Average Hourly Wait Times Per Ride")
@@ -163,4 +162,67 @@ else: # Display the metrics
     
     else:
         st.write("Please select an attraction.")
+
+st.write("#")
+st.write("#")
+st.write("#")
+
+# ANALYSIS 3 - Provide ride info to customers based on date and time and their choice of max wait time __________________________________________________________________________
+st.subheader("Find a ride based on wait time")
+
+# Parameter selection __________________________________________________________________________
+# Select the date range
+with st.container():
+    hours = wait_time_df.DEB_TIME_HOUR.unique()
+    hours.sort()
+    c1, c2, c3, c4 = st.columns(4)
+    with c1:
+        date_2 = st.date_input('Select date', max_date, key='date2')
+    with c2:
+        hour = st.selectbox('Select hour of day', hours)
+
+    if (date_2 > max_date or date_2 < min_date):
+        st.error('No data available for this date')
+
+    date_2 = str(date_2.strftime("%Y-%m-%d"))
+    
+# Select the park _____________________________________________________________________________
+with st.container():
+    c1, c2, c3, = st.columns(3)
+    with c1:
+        park_3 = st.selectbox('Parks :🏰:', park_list, key='singlepark2')
+    mask_3 = (park_attraction_df['PARK'] == park_3)
+    df_filtered_3 = park_attraction_df[mask_3]
+    attraction_list_3 = df_filtered_3.ATTRACTION.unique()
+
+# Select the max wait time _____________________________________________________________________________
+with st.container():
+    wait_durations = wait_time_df.WAIT_TIME_MAX.unique()
+    wait_durations.sort()
+    c1, c2, c3, = st.columns(3)
+    with c1:
+        time = st.selectbox('Select the time you are willing to wait (in minutes) :⏳:', wait_durations, key='wait_time')
+    
+# Wait Time insights __________________________________________________________________________
+if len(wait_time_df[(pd.to_datetime(wait_time_df.WORK_DATE) == pd.to_datetime(date_2))])==0:
+    st.write("No data available for this date")
+    
+else: # Display the metrics
+    if time:
+        data = available_rides(wait_time_df,\
+            attraction_list_3,
+            date_2,
+            hour,
+            time,
+            date_label="WORK_DATE",
+            hour_label = "DEB_TIME_HOUR",
+            wait_time_label="WAIT_TIME_MAX",
+            open_time_label="OPEN_TIME",
+            up_time_label="UP_TIME",
+            attraction_label="ENTITY_DESCRIPTION_SHORT")
+        st.write('Available Rides')
+        st.dataframe(data)
+    
+    else:
+        st.write("Please select your choices.")
 
