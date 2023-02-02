@@ -161,3 +161,59 @@ def hourly_wait_time_figures(df, attraction_list, date, date_label, hour_label, 
     
     return fig
 
+def attendance_week_month(attendance):
+    '''
+    Create the graph that show the monthly and weekly seasonalities
+
+    Input : 
+        attendance: pd.DataFrame = table of the attendances for the two parks
+    Output :
+        fig_week, fig_month = one plot for each seasonality
+    '''
+    # Average anual attendance
+    to_plot_month = attendance.copy()
+    to_plot_month["month"] = pd.to_datetime(attendance.USAGE_DATE).apply(lambda x: x.month)
+    to_plot_month = to_plot_month[["FACILITY_NAME", "month", "attendance"]].groupby(["FACILITY_NAME", "month"]).mean().reset_index()
+    mapping = {1: 'january',\
+        2: 'february',
+        3: 'march',
+        4: 'april',
+        5: 'may',
+        6: 'june',
+        7: 'july',
+        8: 'august',
+        9: 'september',
+        10: 'october',
+        11: 'november',
+        12: 'december'}
+    to_plot_month = to_plot_month.replace({'month': mapping})
+
+    to_plot_day = attendance.copy()
+    to_plot_day["day"] = pd.to_datetime(attendance.USAGE_DATE).apply(lambda x: x.weekday())
+    to_plot_day = to_plot_day[["FACILITY_NAME", "day", "attendance"]].groupby(["FACILITY_NAME", "day"]).mean().reset_index()
+    mapping = {0: 'monday',\
+        1: 'tuesday',
+        2: 'wednesday',
+        3: 'thursday',
+        4: 'friday',
+        5: 'saturday',
+        6: 'sunday'}
+    to_plot_day = to_plot_day.replace({'day': mapping})
+
+    to_plot_month_1 = to_plot_month[to_plot_month.FACILITY_NAME=="Tivoli Gardens"]
+    to_plot_month_2 = to_plot_month[to_plot_month.FACILITY_NAME=="PortAventura World"]
+
+    fig_month = go.Figure()
+    fig_month.add_trace(go.Scatter(x=to_plot_month_1.month, y=to_plot_month_1.attendance, mode="lines", name="Tivoli Gardens", line=dict(color='#002244')))
+    fig_month.add_trace(go.Scatter(x=to_plot_month_2.month, y=to_plot_month_2.attendance, mode="lines", name="PortAventura World", line=dict(color='#ff0066')))
+    fig_month.update_layout(yaxis_title='Attendance', width=400, height=400, title='Monthly seasonnality')
+
+    to_plot_day_1 = to_plot_day[to_plot_day.FACILITY_NAME=="Tivoli Gardens"]
+    to_plot_day_2 = to_plot_day[to_plot_day.FACILITY_NAME=="PortAventura World"]
+
+    fig_day = go.Figure()
+    fig_day.add_trace(go.Scatter(x=to_plot_day_1.day, y=to_plot_day_1.attendance, mode="lines", name="Tivoli Gardens", line=dict(color='#002244')))
+    fig_day.add_trace(go.Scatter(x=to_plot_day_2.day, y=to_plot_day_2.attendance, mode="lines", name="PortAventura World", line=dict(color='#ff0066')))
+    fig_day.update_layout(yaxis_title='Attendance', width=400, height=400, title='Weekly seasonnality')
+
+    return fig_day, fig_month
