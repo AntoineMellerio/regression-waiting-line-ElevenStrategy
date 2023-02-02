@@ -119,7 +119,8 @@ with st.container():
     c1, c2, c3, = st.columns(3)
     with c1:
         park_2 = st.selectbox('Parks :🏰:', park_list, key='singlepark')
-    df_filtered_2 = park_attraction_df[mask]
+    mask_2 = (park_attraction_df['PARK'] == park_2)
+    df_filtered_2 = park_attraction_df[mask_2]
 
 # Select the attraction _______________________________________________________________________
 with st.container():
