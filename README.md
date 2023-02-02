@@ -1,3 +1,5 @@
+![Alt text](./images/banner_page2.jpeg?raw=true "Banner")
+
 # The Endless Line  -  with Eleven Strategy  
   
 This project aims at predicting the waiting lines in a theme park and proposing use cases to reduce them.  
