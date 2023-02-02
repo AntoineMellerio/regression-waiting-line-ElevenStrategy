@@ -92,7 +92,7 @@ def daily_wait_time_figures(df, attraction_list, start_date, end_date, date_labe
         z=complete_list,
         x=rslt_df.index,
         y=unique_rides,
-        colorscale='Viridis'))
+        colorscale='redor'))
 
     fig.update_layout(
         title='Average Wait Times of Each Ride Per Day (in minutes)',
@@ -150,7 +150,7 @@ def hourly_wait_time_figures(df, attraction_list, date, date_label, hour_label, 
         z=complete_list,
         x=rslt_df.index,
         y=unique_rides,
-        colorscale='Viridis'))
+        colorscale='redor'))
 
     fig.update_layout(
         title='Average Wait Times of Each Ride Per Hour On The Selected Day (in minutes)',
