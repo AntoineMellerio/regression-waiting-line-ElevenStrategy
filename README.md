@@ -8,4 +8,4 @@ Please run `pip install -r requirements.txt`.
   
 ## Web app
 We provide a dashboard showing the key take-outs of our analysis.  
-To generate it, please run `streamlit run app.py`.
+To generate it, please run `streamlit run Home.py`.
