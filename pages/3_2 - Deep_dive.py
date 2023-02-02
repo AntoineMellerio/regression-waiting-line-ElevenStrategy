@@ -47,12 +47,12 @@ with st.container():
     bar_chart_waiting_time = wait_time_df[["WAIT_TIME_MAX", "ENTITY_DESCRIPTION_SHORT"]]\
         .groupby("ENTITY_DESCRIPTION_SHORT")\
         .mean()\
-        .rename(columns={'WAIT_TIME_MAX': 'Mean waiting time'})\
+        .rename(columns={'WAIT_TIME_MAX': 'Mean waiting time', 'ENTITY_DESCRIPTION_SHORT': 'Attraction'})\
         .sort_values('Mean waiting time', ascending=False)\
         .reset_index()
 
     st.write(alt.Chart(bar_chart_waiting_time).mark_bar().encode(
-        x=alt.X('ENTITY_DESCRIPTION_SHORT', sort=None),
+        x=alt.X('Attraction', sort=None),
         y='Mean waiting time',
     ))
 
