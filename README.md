@@ -7,7 +7,7 @@ It is conducted along with Eleven Strategy.
   
 ## Environment
 The codes are executed under Python 3.8.16. Other versions may work but have not been tested.  
-To make sure everything will work, you can create a conda environment running the following commands :  
+To make sure everything will work, create a conda environment running the following commands :  
 `conda create --name eleven-env python=3.8.16`  
 `conda activate eleven-env`  
 
