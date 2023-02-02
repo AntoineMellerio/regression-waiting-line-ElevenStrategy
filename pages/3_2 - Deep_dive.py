@@ -168,7 +168,7 @@ st.write("#")
 st.write("#")
 
 # ANALYSIS 3 - Provide ride info to customers based on date and time and their choice of max wait time __________________________________________________________________________
-st.subheader("Find a ride based on wait time")
+st.subheader("Find a Ride Based on Wait Time")
 
 # Parameter selection __________________________________________________________________________
 # Select the date range
