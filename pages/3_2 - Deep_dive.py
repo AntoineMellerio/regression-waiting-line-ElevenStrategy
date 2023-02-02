@@ -6,6 +6,7 @@ import plotly.graph_objects as go
 import pandas as pd
 from pathlib import Path
 from utils.utils import daily_wait_time_figures, hourly_wait_time_figures
+import altair as alt
 
 root_path = Path(os.getcwd())
 data_path = os.path.join(root_path, 'data')
@@ -39,8 +40,25 @@ park_attraction_df = pd.read_csv(os.path.join(data_path, 'link_attraction_park.c
 banner = Image.open(os.path.join(root_path,"images/banner_page4.jpeg"))
 st.image(banner)
 st.title("Detailed Insights")
-st.subheader("Historical Average Daily Wait Times Per Ride")
 
+with st.container(): 
+    st.subheader("Average waiting time per attraction.")
+
+    bar_chart_waiting_time = wait_time_df[["WAIT_TIME_MAX", "ENTITY_DESCRIPTION_SHORT"]]\
+        .groupby("ENTITY_DESCRIPTION_SHORT")\
+        .mean()\
+        .rename(columns={'WAIT_TIME_MAX': 'Mean waiting time'})\
+        .sort_values('Mean waiting time', ascending=False)\
+        .reset_index()
+
+    st.write(alt.Chart(bar_chart_waiting_time).mark_bar().encode(
+        x=alt.X('ENTITY_DESCRIPTION_SHORT', sort=None),
+        y='Mean waiting time',
+    ))
+
+st.write("---")
+
+st.subheader("Historical Average Daily Wait Times Per Ride")
 # Parameter selection __________________________________________________________________________
 # Select the date range
 with st.container(): 
