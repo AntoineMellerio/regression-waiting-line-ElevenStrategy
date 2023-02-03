@@ -95,7 +95,7 @@ def daily_wait_time_figures(df, attraction_list, start_date, end_date, date_labe
         colorscale='redor'))
 
     fig.update_layout(
-        title='Average Wait Times of Each Ride Per Day (in minutes)',
+        title='Average waiting times of each ride per day (in minutes)',
         xaxis_title = 'Date',
         yaxis_title = 'Ride',
         xaxis_nticks = len(rslt_df.index),
@@ -153,7 +153,7 @@ def hourly_wait_time_figures(df, attraction_list, date, date_label, hour_label, 
         colorscale='redor'))
 
     fig.update_layout(
-        title='Average Wait Times of Each Ride Per Hour On The Selected Day (in minutes)',
+        title='Average waiting times of each ride per hour (in minutes)',
         xaxis_title = 'Hour of Day',
         yaxis_title = 'Ride',
         xaxis_nticks = len(rslt_df.index),

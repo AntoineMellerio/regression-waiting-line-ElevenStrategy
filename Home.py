@@ -37,44 +37,34 @@ def local_css(file_name):
     with open(file_name) as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-
 # ---- HEADER SECTION ----
 with st.container():
     st.title("The Endless Line")
+    st.header("A data driven approach to optimize customer waiting times.")
 
-    image_column, text_column = st.columns([3, 1])
-    with image_column:
-
-        st.header("A Data Driven Approach to Optimize Customer Wait Times")
-        st.subheader('''
-        "With great power comes great responsibility" - With more footfalls, come longer queues
-        ''')
     st.markdown('''<h3 style='text-align: center; 
                 color: lightgreen;
-                '>Our goal is to harness the power of data science by accurately forecasting wait times across the park to enable you to enhance customer experience</h3>''', 
+                '>Our goal is to harness the power of data science by accurately forecasting wait times across the park to enable you to enhance customer experience.</h3>''', 
         unsafe_allow_html=True)
 
 # ---- Eleven description ----
 with st.container():
     st.write("---")
-    st.header("About Us:")
-    left_column, right_column = st.columns(2)
-    with left_column:
-        st.subheader("We are 6 Eleven consultants with a strong background in data science")
-    with right_column:
-        st.write('')
-    left_column_2, right_column_2 = st.columns(2)
+    st.header("About us")
+    st.subheader("We are 6 Eleven consultants with a strong background in data science.")
+    st.write( """
+        - Holders of Masters in Data Science for Business from École Polytechnique and HEC Paris
+        - Diverse technical and business expertise
+        - 60+ data science projects amongst us
+        """
+    )
+    left_column_2, right_column_2 = st.columns([2, 1])
     with left_column_2:
-        st.write( """
-            - Holders of Masters in Data Science for Business from École Polytechnique and HEC Paris
-            - Diverse technical and business expertise
-            - 60+ data science projects amongst us
-            """
-        )
+ 
         st.write("##")
         st.write(
             """
-            About Eleven:
+            About Eleven:  
             First European strategy consulting firm specifically founded to accompany its clients in their transformation to adapt to the new paradigm of the digital and AI (artificial intelligence) economy thanks to a novel combination of strategic analysis, an entrepreneurial approach and a strong proximity to the digital and data ecosystem.
       
             If this interests to you, consider hiring us for your project.
@@ -85,22 +75,24 @@ with st.container():
     with right_column_2:
         st.image(image, caption = 'Eleven Strategy')
     
-
-# ---- Project Overview ----
-with st.container():
-    st.write("---")
-    st.header("A brief overview of our project")
-    st.write("To help you get started")
-    st.write("##")
+st.write('---')
 
 with st.container():
-    st.subheader("Forecasting Wait Times To Enhance Customer Experience")
+    st.subheader("Forecasting waiting times to enhance customer experience")
     st.write(
             """
                 - An extensive database ranging from customer footfalls to weather patterns.
                 - Rigorous preprocessing to clean and identify key predictors
-                - Complex models to acheive high accuracy
+                - Complex models to achieve high accuracy
                 - Analysis of predictions to identify impact on KPIs
-            For more details please navigate to the "Overview" page.
+            For more details please navigate to the "Global insights" page.
             """
         )
+
+st.write("")
+st.write("")
+st.write("")
+
+st.markdown('''<h6 style='text-align: center; 
+            '>"With great power comes great responsibility" - With more footfalls, come longer queues.</h3>''', 
+    unsafe_allow_html=True)

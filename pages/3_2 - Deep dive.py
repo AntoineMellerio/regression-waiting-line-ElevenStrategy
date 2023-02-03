@@ -42,63 +42,64 @@ st.image(banner)
 st.title("Detailed Insights")
 
 with st.container():
-    
     park_list = park_attraction_df.PARK.unique()
-    c1, c2, c3 = st.columns(3, gap="large")
-    with c1:
-        st.subheader("Average waiting time per attraction - Overall.")
-        bar_chart_waiting_time = wait_time_df[["WAIT_TIME_MAX", "ENTITY_DESCRIPTION_SHORT"]]\
-            .groupby("ENTITY_DESCRIPTION_SHORT")\
-            .mean()\
-            .rename(columns={'WAIT_TIME_MAX': 'Mean waiting time'})\
-            .sort_values('Mean waiting time', ascending=False)\
-            .reset_index()
 
-        st.write(alt.Chart(bar_chart_waiting_time).mark_bar().encode(
-            x=alt.X('ENTITY_DESCRIPTION_SHORT', sort=None),
-            y='Mean waiting time',
-        ))
-        
-    with c2:
+    bar_chart_waiting_time = wait_time_df[["WAIT_TIME_MAX", "ENTITY_DESCRIPTION_SHORT"]]\
+        .groupby("ENTITY_DESCRIPTION_SHORT")\
+        .mean()\
+        .sort_values('WAIT_TIME_MAX', ascending=False)\
+        .reset_index()\
+        .rename(columns={'WAIT_TIME_MAX': 'Mean waiting time', 'ENTITY_DESCRIPTION_SHORT': 'Attraction'})
+
+    st.subheader("Average waiting time per attraction - Overall.")
+    st.write(alt.Chart(bar_chart_waiting_time).mark_bar().encode(
+        x=alt.X('Attraction', sort=None),
+        y='Mean waiting time',
+    ))
+
+    c1, c2 = st.columns(2)
+    with c1:
         park_1 = park_list[1]
         mask_park_1 = (park_attraction_df['PARK'] == park_1)
         df_park_1 = park_attraction_df[mask_park_1]
         attraction_list_park_1 = df_park_1.ATTRACTION.unique()
         wait_time_df_mask_1 = wait_time_df[wait_time_df['ENTITY_DESCRIPTION_SHORT'].isin(attraction_list_park_1)]
-        st.subheader("Average waiting time per attraction - "+park_list[1])
         bar_chart_waiting_time_park_1 = wait_time_df_mask_1[["WAIT_TIME_MAX", "ENTITY_DESCRIPTION_SHORT"]]\
             .groupby("ENTITY_DESCRIPTION_SHORT")\
             .mean()\
-            .rename(columns={'WAIT_TIME_MAX': 'Mean waiting time'})\
-            .sort_values('Mean waiting time', ascending=False)\
-            .reset_index()
+            .sort_values('WAIT_TIME_MAX', ascending=False)\
+            .reset_index()\
+            .rename(columns={'WAIT_TIME_MAX': 'Mean waiting time', 'ENTITY_DESCRIPTION_SHORT': 'Attraction'})
+
+        st.subheader("Average waiting time per attraction - "+park_list[1])
         st.write(alt.Chart(bar_chart_waiting_time_park_1).mark_bar().encode(
-            x=alt.X('ENTITY_DESCRIPTION_SHORT', sort=None),
-            y='Mean waiting time',
+            x=alt.X('Attraction', sort=None),
+            y='Mean waiting time'
         ))
        
-    with c3:
+    with c2:
         park_2 = park_list[0]
         mask_park_2 = (park_attraction_df['PARK'] == park_2)
         df_park_2 = park_attraction_df[mask_park_2]
         attraction_list_park_2 = df_park_2.ATTRACTION.unique()
         wait_time_df_mask_2 = wait_time_df[wait_time_df['ENTITY_DESCRIPTION_SHORT'].isin(attraction_list_park_2)]
-        st.subheader("Average waiting time per attraction - "+park_list[0])
         bar_chart_waiting_time_park_2 = wait_time_df_mask_2[["WAIT_TIME_MAX", "ENTITY_DESCRIPTION_SHORT"]]\
             .groupby("ENTITY_DESCRIPTION_SHORT")\
             .mean()\
-            .rename(columns={'WAIT_TIME_MAX': 'Mean waiting time'})\
-            .sort_values('Mean waiting time', ascending=False)\
-            .reset_index()
+            .sort_values('WAIT_TIME_MAX', ascending=False)\
+            .reset_index()\
+            .rename(columns={'WAIT_TIME_MAX': 'Mean waiting time', 'ENTITY_DESCRIPTION_SHORT': 'Attraction'})
+
+        st.subheader("Average waiting time per attraction - "+park_list[0])
         st.write(alt.Chart(bar_chart_waiting_time_park_2).mark_bar().encode(
-            x=alt.X('ENTITY_DESCRIPTION_SHORT', sort=None),
+            x=alt.X('Attraction', sort=None),
             y='Mean waiting time',
         ))
         
 
 st.write("---")
 
-st.subheader("Historical Average Daily Wait Times Per Ride")
+st.subheader("Compare the average waiting time of each rides day-to-day.")
 # Parameter selection __________________________________________________________________________
 # Select the date range
 with st.container(): 
@@ -157,7 +158,7 @@ st.write("#")
 st.write("#")
 
 # ANALYSIS 2 - Avg Hourly Wait Times __________________________________________________________________________
-st.subheader("Historical Average Hourly Wait Times Per Ride")
+st.subheader("Compare the average waiting time of each rides hour-per-hour.")
 
 # Parameter selection __________________________________________________________________________
 # Select the date range
@@ -209,7 +210,7 @@ st.write("#")
 st.write("#")
 
 # ANALYSIS 3 - Provide ride info to customers based on date and time __________________________________________________________________________
-st.subheader("Find a Ride Based on Wait Time")
+st.subheader("Find a ride based on the waiting time.")
 
 # Parameter selection __________________________________________________________________________
 # Select the date range
