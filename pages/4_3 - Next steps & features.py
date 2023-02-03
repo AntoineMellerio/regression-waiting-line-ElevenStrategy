@@ -7,7 +7,7 @@ from pathlib import Path
 st.set_page_config(page_title="Next steps", page_icon=":roller_coaster:", layout="wide")  
 
 st.sidebar.title("💻 Our work: ")
-st.sidebar.info("[GitHub Repository](https://github.com/MRL1998/MCK_Silos.git)")
+st.sidebar.info("[GitHub Repository](https://github.com/AntoineMellerio/regression-waiting-line-ElevenStrategy)")
 st.sidebar.title("📬 Contact:")
 st.sidebar.info("""
 sai-abhishikth.ayyadevara@hec.edu  
@@ -60,14 +60,14 @@ st.write("""
          """
         )
 
-st.subheader("Itinary recommendation")
+st.subheader("Itinerary recommendation")
 st.write("""
-         Based on the waiting time predictions, on the client's tastes and on it location, recommend an itinary.
+         Based on the waiting time predictions, on the client's tastes and on it location, recommend an Itinerary.
          """
         )
 
 st.subheader("Integrate the influence of our recommendations")
 st.write("""
-         For exemple, recommending intinaries to the clients will surely modify the waiting times. We hence need to take it into acount in our predictions. 
+         For exemple, recommending itineraries to the clients will surely modify the waiting times. We hence need to take it into acount in our predictions. 
          """
         )
