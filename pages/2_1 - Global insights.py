@@ -18,7 +18,7 @@ def saveImage(byteImage):
 
 # Sidebar __________________________________________________________________________
 st.sidebar.title("💻 Our work: ")
-st.sidebar.info("[GitHub Repository](https://github.com/MRL1998/MCK_Silos.git)")
+st.sidebar.info("[GitHub Repository](https://github.com/AntoineMellerio/regression-waiting-line-ElevenStrategy)")
 st.sidebar.title("📬 Contact:")
 st.sidebar.info("""
 sai-abhishikth.ayyadevara@hec.edu  
