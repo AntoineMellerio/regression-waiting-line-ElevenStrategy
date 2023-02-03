@@ -95,7 +95,7 @@ def daily_wait_time_figures(df, attraction_list, start_date, end_date, date_labe
         colorscale='redor'))
 
     fig.update_layout(
-        title='Average Wait Times of Each Ride Per Day (in minutes)',
+        title='Average waiting times of each ride per day (in minutes)',
         xaxis_title = 'Date',
         yaxis_title = 'Ride',
         xaxis_nticks = len(rslt_df.index),
@@ -153,7 +153,7 @@ def hourly_wait_time_figures(df, attraction_list, date, date_label, hour_label, 
         colorscale='redor'))
 
     fig.update_layout(
-        title='Average Wait Times of Each Ride Per Hour On The Selected Day (in minutes)',
+        title='Average waiting times of each ride per hour (in minutes)',
         xaxis_title = 'Hour of Day',
         yaxis_title = 'Ride',
         xaxis_nticks = len(rslt_df.index),
@@ -217,3 +217,51 @@ def attendance_week_month(attendance):
     fig_day.update_layout(yaxis_title='Attendance', width=400, height=400, title='Weekly seasonnality')
 
     return fig_day, fig_month
+
+def available_rides(df, attraction_list, date, hour, time, date_label, hour_label, wait_time_label, open_time_label, up_time_label, attraction_label):
+    '''
+    Return a table showing available rides and their wait times based on the customer's choices
+
+    Input : 
+        df : pd.DataFrame() = table of the wait time per ride every 15 min and an assortment of other related features. 
+        attraction_list : list(str) = list of the names of the attractions.
+        date : str = input date of the user with format yyyy/mm/dd.
+        hour: str = input hour of the user
+        time: str = input max wait time chosen by the user
+        date_label : str = label of the date column.
+        hour_label: str = label of the hour column.
+        wait_time_label : str = label of the wait time column.
+        open_time_label : str = label of the open time column.
+        up_time_label : str = label of the up time column.
+        attraction_label : str = label of the attraction column.
+    Output :
+        finaldf = dataframe with rides and their wait times that match with the user's inputs
+    '''
+
+    to_tabulate = df.copy()
+
+    # Change date types
+    to_tabulate[f"{date_label}"] = pd.to_datetime(to_tabulate[f"{date_label}"])
+    date = pd.to_datetime(date)
+
+    # Replace negative values with zero values
+    to_tabulate.loc[to_tabulate[f"{wait_time_label}"]<0, f"{wait_time_label}"] = 0
+
+    # Filter the table
+    to_tabulate = to_tabulate[(to_tabulate[f"{date_label}"]==date)][(to_tabulate[f"{hour_label}"]==hour)][to_tabulate[f"{attraction_label}"].isin(attraction_list)]
+    
+    check_df = to_tabulate[[f"{attraction_label}", f"{open_time_label}", f"{up_time_label}"]]
+    check_df =  check_df.groupby([f"{attraction_label}"]).sum()
+    check_df = check_df[(check_df[f"{open_time_label}"]>0)][(check_df[f"{up_time_label}"]>0)]
+    
+    to_tabulate = to_tabulate[to_tabulate[f"{attraction_label}"].isin(check_df.index)]
+    to_tabulate = to_tabulate[[f"{attraction_label}", f"{wait_time_label}"]]
+    to_tabulate = to_tabulate.groupby([f"{attraction_label}"]).mean()
+    to_tabulate = to_tabulate[(to_tabulate[f"{wait_time_label}"]<=time)]
+
+    finaldf = pd.DataFrame(columns=['Ride','Average Wait Time For Selected Hour (in min)'])
+    finaldf["Ride"] = to_tabulate.index
+    finaldf["Average Wait Time For Selected Hour (in min)"] = to_tabulate[f"{wait_time_label}"].values
+    finaldf = finaldf.astype({'Average Wait Time For Selected Hour (in min)':'int'})
+
+    return finaldf

@@ -42,7 +42,6 @@ banner = Image.open(os.path.join(root_path,"images/banner_page3.jpg"))
 st.image(banner)
 
 st.title("Global insights")
-st.write("---")
 
 # Titles container
 with st.container():
@@ -57,7 +56,7 @@ with st.container():
     Lc = [c1, c2, c3, c4]
 
     with c1:
-        st.metric("Average waiting time (minutes)", waiting_times.WAIT_TIME_MAX.mean().round())
+        st.metric("Average waiting time (minutes)", int(waiting_times.WAIT_TIME_MAX.mean().round()))
         
     # Attractions per park
     to_plot = link_attraction_park.copy()
