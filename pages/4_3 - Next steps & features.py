@@ -7,7 +7,7 @@ from pathlib import Path
 st.set_page_config(page_title="Next steps", page_icon=":roller_coaster:", layout="wide")  
 
 st.sidebar.title("💻 Our work: ")
-st.sidebar.info("[GitHub Repository](https://github.com/MRL1998/MCK_Silos.git)")
+st.sidebar.info("[GitHub Repository](https://github.com/AntoineMellerio/regression-waiting-line-ElevenStrategy.git)")
 st.sidebar.title("📬 Contact:")
 st.sidebar.info("""
 sai-abhishikth.ayyadevara@hec.edu  
@@ -41,33 +41,23 @@ st.write("""
 st.subheader("Improve the predictive model")
 st.write("""
          Our model baseline currently has a Mean Absolute Percentage Error of 3%.  
-         Further parameter tuning and data integration would allow us to improve its accuracy. 
+         Further parameter tuning and data integration would allow us to improve this accuracy. 
          """
         )
 
-st.subheader("Predict hour-to-hour")
-st.write("""
-         Our model outputs daily predictions on the waiting time of the next months, giving you insights to adapt efficiently.  
-         By reducing the granularity to the hour and gathering live data on the park, we would be able to emit hour-to-hour predictions.  
-         """
-        )
 st.write("---")
 
 st.title("Next features")
 st.subheader("Live app for clients")
 st.write("""
-         Generate a live map showing the estimated waiting time of each ride.
+         - Live insights of the waiting time : generate a live map showing the estimated waiting time of each ride.
+         - Itinary recommendation : based on the waiting time predictions, on the client's tastes and on it location, recommend an itinary.
          """
         )
 
-st.subheader("Itinary recommendation")
+st.subheader("Integrate the influence of our app")
 st.write("""
-         Based on the waiting time predictions, on the client's tastes and on it location, recommend an itinary.
-         """
-        )
-
-st.subheader("Integrate the influence of our recommendations")
-st.write("""
-         For exemple, recommending intinaries to the clients will surely modify the waiting times. We hence need to take it into acount in our predictions. 
+         Recommending itinaries to the clients will surely modify the waiting times.  
+         We hence need to take it into acount in our predictions. 
          """
         )

@@ -7,9 +7,7 @@ import os
 # Sidebar __________________________________________________________________________
 st.set_page_config(page_title="Home Page", page_icon=":roller_coaster:", layout="wide") 
  
-markdown = """
-GitHub Repository: <https://github.com/AntoineMellerio/regression-waiting-line-ElevenStrategy>
-"""
+
 
 root_path = Path(os.getcwd())
 data_path = os.path.join(root_path, 'data')
@@ -19,7 +17,7 @@ banner = Image.open(os.path.join(root_path,"images/banner_page2.jpeg"))
 st.image(banner)
 
 st.sidebar.title("💻 Our work: ")
-st.sidebar.info(markdown)
+st.sidebar.info("[GitHub Repository](hhttps://github.com/AntoineMellerio/regression-waiting-line-ElevenStrategy.git)")
 
 st.sidebar.title("📬 Contact:")
 markdown = """

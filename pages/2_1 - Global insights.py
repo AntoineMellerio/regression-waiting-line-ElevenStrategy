@@ -7,6 +7,7 @@ import pandas as pd
 from pathlib import Path
 from utils.utils import attendance_figures, attendance_week_month
 import altair as alt
+import numpy as np
 
 st.set_page_config(page_title="Past performances", page_icon=":roller_coaster:", layout="wide") 
 
@@ -18,7 +19,7 @@ def saveImage(byteImage):
 
 # Sidebar __________________________________________________________________________
 st.sidebar.title("💻 Our work: ")
-st.sidebar.info("[GitHub Repository](https://github.com/MRL1998/MCK_Silos.git)")
+st.sidebar.info("[GitHub Repository](https://github.com/AntoineMellerio/regression-waiting-line-ElevenStrategy.git)")
 st.sidebar.title("📬 Contact:")
 st.sidebar.info("""
 sai-abhishikth.ayyadevara@hec.edu  
@@ -46,6 +47,8 @@ st.title("Global insights")
 # Titles container
 with st.container():
     c1, c2 = st.columns(2)
+    with c1:
+        st.subheader("Average waiting time")
     with c2:
         st.subheader("Number of attractions")
 
@@ -54,9 +57,14 @@ with st.container():
     # Mean waiting time
     c1, c2, c3, c4 = st.columns(4)
     Lc = [c1, c2, c3, c4]
-
+    waiting_times['year'] = pd.to_datetime(waiting_times.WORK_DATE).apply(lambda x: x.year)
+    waiting_times_2019 = waiting_times[waiting_times.year==2019]
+    waiting_times_2022 = waiting_times[waiting_times.year==2022]    
+    avg_time_2019 = int(waiting_times_2019.WAIT_TIME_MAX.mean().round())
+    avg_time_2022 = int(waiting_times_2022.WAIT_TIME_MAX.mean().round())
+    delta = int(np.round((avg_time_2022-avg_time_2019)*100/avg_time_2019))
     with c1:
-        st.metric("Average waiting time (minutes)", int(waiting_times.WAIT_TIME_MAX.mean().round()))
+        st.metric("2022", f"{int(waiting_times_2022.WAIT_TIME_MAX.mean().round())} minutes", f"{delta}% compared to 2019")
         
     # Attractions per park
     to_plot = link_attraction_park.copy()
@@ -78,7 +86,10 @@ st.subheader("Attendance tendancies")
 
 # Weekly and Monthly tendancies
 with st.container():
-    fig_day, fig_month = attendance_week_month(attendance_df)
+    # Only apply on significative year (aka without covid) : 2019
+    attendance_df['year'] = pd.to_datetime(attendance_df.USAGE_DATE).apply(lambda x: x.year)
+    attendance_2019 = attendance_df[attendance_df.year==2019]
+    fig_day, fig_month = attendance_week_month(attendance_2019)
 
     c1, c2, = st.columns(2)
     with c1:

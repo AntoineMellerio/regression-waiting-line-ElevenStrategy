@@ -15,7 +15,7 @@ data_path = os.path.join(root_path, 'data')
 st.set_page_config(page_title="Detailed Insights", page_icon=":roller_coaster:", layout="wide") 
 
 st.sidebar.title("💻 Our work: ")
-st.sidebar.info("[GitHub Repository](https://github.com/AntoineMellerio/regression-waiting-line-ElevenStrategy)")
+st.sidebar.info("[GitHub Repository](https://github.com/AntoineMellerio/regression-waiting-line-ElevenStrategy.git)")
 st.sidebar.title("📬 Contact:")
 st.sidebar.info("""
 sai-abhishikth.ayyadevara@hec.edu  
@@ -96,10 +96,9 @@ with st.container():
             y='Mean waiting time',
         ))
         
-
 st.write("---")
 
-st.subheader("Compare the average waiting time of each rides day-to-day.")
+st.subheader("Compare the average waiting time of each ride day-to-day.")
 # Parameter selection __________________________________________________________________________
 # Select the date range
 with st.container(): 
@@ -152,13 +151,8 @@ else: # Display the metrics
     else:
         st.write("Please select an attraction.")
 
-st.write("#")
-st.write("#")
-st.write("#")
-st.write("#")
-
 # ANALYSIS 2 - Avg Hourly Wait Times __________________________________________________________________________
-st.subheader("Compare the average waiting time of each rides hour-per-hour.")
+st.subheader("Compare the average waiting time of each ride hour-per-hour.")
 
 # Parameter selection __________________________________________________________________________
 # Select the date range
@@ -204,10 +198,7 @@ else: # Display the metrics
     else:
         st.write("Please select an attraction.")
 
-st.write("#")
-st.write("#")
-st.write("#")
-st.write("#")
+st.write('---')
 
 # ANALYSIS 3 - Provide ride info to customers based on date and time __________________________________________________________________________
 st.subheader("Find a ride based on the waiting time.")
